@@ -86,6 +86,7 @@ public class HttpHeartbeatSender implements HeartbeatSender {
             .setParameter("version", String.valueOf(System.currentTimeMillis()))
             .setParameter("hostname", HostNameUtil.getHostName())
             .setParameter("ip", TransportConfig.getHeartbeatClientIp())
+            .setParameter("ip_fetch_from_server", TransportConfig.isHeartbeatClientIpFetchFromServer().toString())
             .setParameter("port", TransportConfig.getPort())
             .setParameter("pid", String.valueOf(PidUtil.getPid()));
 

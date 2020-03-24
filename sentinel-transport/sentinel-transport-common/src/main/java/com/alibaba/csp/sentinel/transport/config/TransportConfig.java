@@ -35,6 +35,7 @@ public class TransportConfig {
     public static final String HEARTBEAT_INTERVAL_MS = "csp.sentinel.heartbeat.interval.ms";
     public static final String HEARTBEAT_CLIENT_IP = "csp.sentinel.heartbeat.client.ip";
     public static final String HEARTBEAT_API_PATH = "csp.sentinel.heartbeat.api.path";
+    public static final String HEARTBEAT_CLIENT_IP_FETCH_FROM_SERVER = "csp.sentinel.heartbeat.client.ip.fetch.from.server";
 
     public static final String HEARTBEAT_DEFAULT_PATH = "/registry/machine";
 
@@ -69,7 +70,7 @@ public class TransportConfig {
         if (StringUtil.isBlank(config)) {
             return list;
         }
-        
+
         int pos = -1;
         int cur = 0;
         while (true) {
@@ -176,4 +177,9 @@ public class TransportConfig {
         }
         return apiPath;
     }
+
+    public static Boolean isHeartbeatClientIpFetchFromServer() {
+        return Boolean.valueOf(SentinelConfig.getConfig(HEARTBEAT_CLIENT_IP_FETCH_FROM_SERVER));
+    }
+
 }

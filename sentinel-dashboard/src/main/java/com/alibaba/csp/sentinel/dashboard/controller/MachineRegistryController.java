@@ -30,6 +30,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping(value = "/registry", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MachineRegistryController {
@@ -41,7 +43,20 @@ public class MachineRegistryController {
 
     @ResponseBody
     @RequestMapping("/machine")
-    public Result<?> receiveHeartBeat(String app, @RequestParam(value = "app_type", required = false, defaultValue = "0") Integer appType, Long version, String v, String hostname, String ip, Integer port) {
+    public Result<?> receiveHeartBeat(
+            HttpServletRequest request,
+            String app,
+            @RequestParam(value = "app_type", required = false, defaultValue = "0") Integer appType,
+            Long version,
+            String v,
+            String hostname,
+            String ip,
+            Integer port,
+            @RequestParam(value = "ip_fetch_from_server", required = false, defaultValue = "false") boolean ipFetchFromServer
+    ) {
+        if (ipFetchFromServer) {
+            ip = request.getRemoteAddr();
+        }
         if (app == null) {
             app = MachineDiscovery.UNKNOWN_APP_NAME;
         }
